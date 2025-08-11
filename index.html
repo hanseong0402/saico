@@ -3,46 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SAICO | 스마트 에너지 솔루션</title>
-  <meta name="description" content="SAICO – 스마트 에너지/태양광 모니터링 및 관제 솔루션" />
+  <title>SAICO </title>
+  <meta name="description" content="SAICO" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0b1220;
-      --panel: #111827;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --brand: #3b82f6;
-      --brand-2: #22d3ee;
-      --ring: 24, 144, 255;
+      --bg: #f8fafc;           /* 전체 배경: 아주 연한 회색 */
+      --panel: #ffffff;        /* 카드/패널 배경: 흰색 */
+      --text: #1f2937;         /* 기본 텍스트: 짙은 회색 */
+      --muted: #6b7280;        /* 흐린 텍스트: 중간 회색 */
+      --brand: #3b82f6;        /* 브랜드 색 1: 파란색 */
+      --brand-2: #0ea5e9;      /* 브랜드 색 2: 하늘색 */
+      --ring: 59, 130, 246;    /* 파란색 (RGB 값) */
       --radius: 16px;
       --maxw: 1100px;
+}
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    * { box-sizing: border-box; }  //모든 요소의 너비·높이 계산 방식에 border-box를 적용
+    html, body { height: 100%; }  //화면 전체 높이를 100으로 맞
     body {
-      margin: 0;
+      margin: 0;                //여백제거
       font-family: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-      background: radial-gradient(1200px 600px at 80% -10%, rgba(59,130,246,.15), transparent 60%),
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(59,130,246,.15), transparent 60%),       //그라데이션
                   radial-gradient(900px 500px at -10% 0%, rgba(34,211,238,.12), transparent 50%),
                   var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      color: var(--text);       //글자색
+      line-height: 1.6;         //줄간격
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }          //링크 색상을 부모 요소와 동일하게 설정.
+    img { max-width: 100%; display: block; }              //이미지가 부모 영역보다 커지지 않도록 제한.
     .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
     /* Header */
     header {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: saturate(180%) blur(10px);
-      background: rgba(11,18,32,.6);
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      position: sticky; top: 0; z-index: 50;              다른 요소 위에 보이도록 층위 설정.
+      backdrop-filter: saturate(180%) blur(10px);         반투명 배경에 흐림 효과(blur) 적용.
+      background: rgba(11,18,32,.6);                      어두운 반투명 배경색.
+      border-bottom: 1px solid rgba(255,255,255,.06);     하단에 연한 구분선.
     }
     .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
     .brand { display: inline-flex; align-items: center; gap: .6rem; font-weight: 700; letter-spacing: .3px; }
