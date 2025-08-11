@@ -1,13 +1,304 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>내 홈페이지</title>
-  <style>body{font-family:system-ui,apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:40px;line-height:1.6}</style>
+  <title>SAICO | 스마트 에너지 솔루션</title>
+  <meta name="description" content="SAICO – 스마트 에너지/태양광 모니터링 및 관제 솔루션" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --brand: #3b82f6;
+      --brand-2: #22d3ee;
+      --ring: 24, 144, 255;
+      --radius: 16px;
+      --maxw: 1100px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(59,130,246,.15), transparent 60%),
+                  radial-gradient(900px 500px at -10% 0%, rgba(34,211,238,.12), transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(180%) blur(10px);
+      background: rgba(11,18,32,.6);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: inline-flex; align-items: center; gap: .6rem; font-weight: 700; letter-spacing: .3px; }
+    .brand-badge { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 8px 30px rgba(59,130,246,.35);
+    }
+    .nav-links { display: flex; gap: 1rem; align-items: center; }
+    .nav-links a { padding: .4rem .7rem; border-radius: 10px; color: var(--muted); font-weight: 500; }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,.06); }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .7rem 1rem; border-radius: 12px; font-weight: 600; }
+    .btn-primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #0b1220; }
+
+    .menu-btn { display:none; background:none; border:none; color: var(--text); font-size: 1.2rem; }
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .menu-btn { display: inline-flex; }
+      .mobile { display: none; position: absolute; left: 0; right: 0; top: 64px; background: rgba(11,18,32,.98); border-bottom: 1px solid rgba(255,255,255,.06); }
+      .mobile a { display: block; padding: 14px 20px; color: var(--muted); }
+      .mobile a:hover { background: rgba(255,255,255,.06); color: #fff; }
+    }
+
+    /* Hero */
+    .hero { padding: 96px 0 72px; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .6rem; border:1px solid rgba(255,255,255,.12); border-radius:999px; color: var(--muted); font-size:.9rem; }
+    h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.1; margin: 14px 0 16px; letter-spacing: -.3px; }
+    .lead { color: var(--muted); font-size: clamp(16px, 2vw, 18px); }
+    .hero-cta { display:flex; gap: 14px; margin-top: 28px; }
+
+    .hero-card { position: relative; background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.08); border-radius: calc(var(--radius) + 6px); overflow: hidden; }
+    .hero-card::before { content:""; position:absolute; inset: -1px; background: radial-gradient(600px 220px at -10% -10%, rgba(34,211,238,.18), transparent 50%), radial-gradient(600px 240px at 120% 0%, rgba(59,130,246,.18), transparent 50%); filter: blur(10px); opacity:.9; }
+    .hero-media { aspect-ratio: 16/10; display:grid; place-items:center; padding: 18px; }
+    .metric-badges { display:flex; flex-wrap:wrap; gap: 10px; padding: 14px; border-top:1px solid rgba(255,255,255,.06); background: rgba(0,0,0,.15); }
+    .badge { font-weight:600; color:#fff; background: rgba(255,255,255,.06); padding:.5rem .7rem; border-radius: 999px; }
+
+    /* Sections */
+    section { padding: 80px 0; }
+    .kicker { color: var(--brand-2); font-weight: 700; letter-spacing: .2em; font-size: .8rem; }
+    .section-title { font-size: clamp(24px, 3.6vw, 36px); margin: 10px 0 18px; }
+    .muted { color: var(--muted); }
+
+    /* Features */
+    .features { display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 26px; }
+    .card { background: linear-gradient(180deg, rgba(17,24,39,.9), rgba(17,24,39,.6)); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding: 20px; transition: transform .2s ease, box-shadow .2s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+    .icon { width: 32px; height: 32px; border-radius: 10px; display:grid; place-items:center; margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b1220; font-weight: 900; }
+
+    /* Showcase */
+    .showcase { display:grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .shot { border-radius: var(--radius); overflow: hidden; border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.04); aspect-ratio: 16/10; display:grid; place-items:center; color: var(--muted); }
+
+    /* CTA */
+    .cta { background: linear-gradient(135deg, rgba(59,130,246,.12), rgba(34,211,238,.12)); border: 1px solid rgba(255,255,255,.12); border-radius: calc(var(--radius) + 4px); padding: 28px; display:grid; grid-template-columns: 1.2fr .8fr; gap: 20px; align-items:center; }
+
+    /* Footer */
+    footer { padding: 40px 0 60px; color: var(--muted); }
+    .foot { display:flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid rgba(255,255,255,.08); padding-top: 16px; }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .features { grid-template-columns: 1fr 1fr; }
+      .showcase { grid-template-columns: 1fr; }
+      .cta { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <h1>안녕하세요 👋</h1>
-  <p>첫 페이지가 Vercel에 배포됩니다.</p>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="SAICO home">
+        <span class="brand-badge">⚡</span>
+        <span>SAICO</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about">회사소개</a>
+        <a href="#features">특장점</a>
+        <a href="#work">사례</a>
+        <a href="#contact">문의</a>
+        <a class="btn btn-primary" href="#contact">견적 요청</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav">메뉴</button>
+    </div>
+    <div id="mobileNav" class="mobile" aria-hidden="true">
+      <a href="#about">회사소개</a>
+      <a href="#features">특장점</a>
+      <a href="#work">사례</a>
+      <a href="#contact">문의</a>
+      <a href="#contact" style="color:#0b1220;background:linear-gradient(135deg, var(--brand), var(--brand-2));margin:10px 20px;border-radius:12px;text-align:center;font-weight:700;">견적 요청</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero container" aria-label="Intro">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">실시간 모니터링 · 예측 유지보수</span>
+          <h1>스마트 에너지 운영을 <br/>더 간단하고 효율적으로</h1>
+          <p class="lead">SAICO는 태양광·ESS 설비의 상태를 한눈에 보여주고, 이상 징후를 예측하여 운영비를 절감합니다. 브라우저만 있으면 어디서든 확인하세요.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#contact">데모 문의</a>
+            <a class="btn" href="#features" style="border:1px solid rgba(255,255,255,.15);color:#fff;">기능 살펴보기</a>
+          </div>
+        </div>
+        <div class="hero-card" aria-hidden="true">
+          <div class="hero-media">
+            <!-- 대체 이미지가 없다면 아래 박스를 유지하세요 -->
+            <div class="shot" style="width:100%;height:100%;aspect-ratio:auto;">
+              대시보드 미리보기 (이미지 교체 가능)
+            </div>
+          </div>
+          <div class="metric-badges">
+            <span class="badge">가동률 ↑ 12%</span>
+            <span class="badge">장애감지 ⩠ 실시간</span>
+            <span class="badge">모바일 대응</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About / Features -->
+    <section id="about" class="container">
+      <p class="kicker">ABOUT</p>
+      <h2 class="section-title">데이터 기반의 에너지 운영 파트너</h2>
+      <p class="muted">현장에서 검증된 RS485/4G 모듈 연동, 클라우드 대시보드, 알림 시스템까지. 설치에서 운영까지 한 번에 지원합니다.</p>
+
+      <div id="features" class="features" aria-label="Features">
+        <article class="card">
+          <div class="icon">①</div>
+          <h3>실시간 관제</h3>
+          <p class="muted">인버터·계측기 데이터를 1초 단위로 수집·표시. 임계치 기반 알람으로 다운타임 최소화.</p>
+        </article>
+        <article class="card">
+          <div class="icon">②</div>
+          <h3>예측 유지보수</h3>
+          <p class="muted">이상 패턴 탐지로 고장 예측. 부품 교체 시점을 미리 제안하여 비용 절감.</p>
+        </article>
+        <article class="card">
+          <div class="icon">③</div>
+          <h3>유연한 연동</h3>
+          <p class="muted">ESP32, RS485, LTE/NB-IoT, MQTT/HTTP 등 다양한 현장 프로토콜을 지원합니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Showcase -->
+    <section id="work" class="container">
+      <p class="kicker">WORK</p>
+      <h2 class="section-title">구축 사례</h2>
+      <p class="muted">샘플 이미지를 자유롭게 교체하세요. (PNG/JPG 업로드 후 상대경로로 변경)</p>
+      <div class="showcase" aria-label="Screenshots">
+        <div class="shot">현장 A – 500kW 모니터링</div>
+        <div class="shot">현장 B – 인버터 장애 알림</div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="container">
+      <div class="cta" role="region" aria-label="Get started">
+        <div>
+          <h3 style="margin:6px 0 8px">지금 바로 운영 효율을 높여보세요</h3>
+          <p class="muted">간단한 현장 정보만 알려주시면 맞춤 견적과 데모 계정을 제공해 드립니다.</p>
+        </div>
+        <div style="text-align:right">
+          <a class="btn btn-primary" href="#contact">문의하기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="container">
+      <p class="kicker">CONTACT</p>
+      <h2 class="section-title">문의 / 견적 요청</h2>
+      <form id="contactForm" class="card" style="padding: 22px; display:grid; gap: 12px;">
+        <div style="display:grid; gap:8px;">
+          <label for="name">이름</label>
+          <input id="name" name="name" placeholder="홍길동" required />
+        </div>
+        <div style="display:grid; gap:8px;">
+          <label for="email">이메일</label>
+          <input id="email" type="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div style="display:grid; gap:8px;">
+          <label for="message">메시지</label>
+          <textarea id="message" name="message" rows="4" placeholder="프로젝트/현장 정보를 간단히 적어주세요"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">보내기</button>
+        <p id="formMsg" class="muted" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div class="brand" aria-label="SAICO footer">
+        <span class="brand-badge">⚡</span>
+        <span>SAICO</span>
+      </div>
+      <div>© <span id="year"></span> SAICO. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <style>
+    /* Simple form styles */
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      color: #fff;
+      outline: none;
+    }
+    input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(var(--ring), .25); border-color: rgba(255,255,255,.35); }
+    label { font-weight: 600; color: #d1d5db; }
+  </style>
+
+  <script>
+    // Mobile nav
+    const btn = document.getElementById('menuBtn');
+    const mobile = document.getElementById('mobileNav');
+    btn?.addEventListener('click', () => {
+      const open = mobile.style.display === 'block';
+      mobile.style.display = open ? 'none' : 'block';
+      btn.setAttribute('aria-expanded', String(!open));
+      mobile.setAttribute('aria-hidden', String(open));
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        mobile.style.display = 'none';
+      });
+    });
+
+    // Fake submit (GitHub Pages는 서버가 없으므로 알림만)
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      msg.textContent = '감사합니다! 메시지가 임시로 저장되었습니다. (실제 전송 API 연결 필요)';
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
